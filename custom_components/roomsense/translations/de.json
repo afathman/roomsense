@@ -1,0 +1,27 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "RoomSense",
+        "description": "RoomSense für die Raumklimasteuerung einrichten. Räume werden nach dem Setup im RoomSense-Panel konfiguriert."
+      }
+    },
+    "abort": {
+      "already_configured": "RoomSense ist bereits konfiguriert."
+    }
+  },
+  "issues": {
+    "restart_required": {
+      "title": "Neustart erforderlich",
+      "description": "RoomSense {version} wurde installiert, aber Home Assistant läuft noch mit einer älteren Version. Ein Neustart ist erforderlich, um das Update abzuschließen.",
+      "fix_flow": {
+        "step": {
+          "confirm_restart": {
+            "title": "Home Assistant neu starten?",
+            "description": "Home Assistant wird neu gestartet, um RoomSense {version} zu laden."
+          }
+        }
+      }
+    }
+  }
+}
