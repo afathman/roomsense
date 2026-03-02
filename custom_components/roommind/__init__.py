@@ -58,9 +58,11 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
 
 async def _async_migrate_storage(hass: HomeAssistant) -> None:
-    """Migrate storage file from old 'roomsense' name if present."""
-    old_path = Path(hass.config.path(".storage")) / "roomsense"
-    new_path = Path(hass.config.path(".storage")) / "roommind"
+    """Migrate storage from old 'roomsense' name if present."""
+    storage_dir = Path(hass.config.path(".storage"))
+    # Rename main storage file
+    old_path = storage_dir / "roomsense"
+    new_path = storage_dir / "roommind"
     if old_path.exists() and not new_path.exists():
         old_path.rename(new_path)
         _LOGGER.info("Migrated storage file from 'roomsense' to 'roommind'")
@@ -74,6 +76,12 @@ async def _async_migrate_storage(hass: HomeAssistant) -> None:
                 _LOGGER.info("Migrated storage key from 'roomsense' to 'roommind'")
         except Exception:  # noqa: BLE001
             _LOGGER.warning("Failed to migrate storage key")
+    # Rename history CSV directory
+    old_history = storage_dir / "roomsense_history"
+    new_history = storage_dir / "roommind_history"
+    if old_history.exists() and not new_history.exists():
+        old_history.rename(new_history)
+        _LOGGER.info("Migrated history directory from 'roomsense_history' to 'roommind_history'")
 
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
